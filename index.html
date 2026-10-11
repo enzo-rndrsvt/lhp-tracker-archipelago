@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LHP 5-7 Tracker</title>
+    <meta name="description" content="Tracker de carte en direct pour Lego Harry Potter 5-7 Archipelago" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 2l3.5 9.5H29l-7.7 6 3 9.5L16 21l-8.3 6 3-9.5L3 11.5h9.5z' fill='%23e3b448'/></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="topbar">
+      <button class="icon-btn menu-toggle" id="menu-toggle" aria-label="Afficher la liste des cartes">☰</button>
+      <div class="brand">
+        <span class="brand-title">LHP 5-7</span>
+        <span class="brand-sub">Tracker Archipelago</span>
+      </div>
+
+      <div class="stats" id="stats" hidden>
+        <div class="stat"><span class="stat-value" id="stat-checked">0</span><span class="stat-label">faits</span></div>
+        <div class="stat stat-avail"><span class="stat-value" id="stat-avail">0</span><span class="stat-label">en logique</span></div>
+        <div class="stat"><span class="stat-value" id="stat-total">0</span><span class="stat-label">total</span></div>
+        <div class="stat stat-goal" id="stat-goal" title="Objectif atteignable avec les items actuels">🏆</div>
+      </div>
+
+      <form class="connect" id="connect-form" autocomplete="on">
+        <input id="host" name="host" placeholder="archipelago.gg:38281" aria-label="Serveur" required />
+        <input id="slot" name="slot" placeholder="Slot" aria-label="Nom du slot" required />
+        <input id="password" name="password" type="password" placeholder="Mot de passe" aria-label="Mot de passe" />
+        <button type="submit" id="connect-btn" class="btn">Connexion</button>
+        <span class="status" id="status" data-status="disconnected" title="Déconnecté"></span>
+      </form>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-tools">
+          <input type="search" id="item-search" placeholder="🔎 Rechercher un item…" aria-label="Rechercher un item" />
+          <div class="tabs" role="tablist">
+            <button role="tab" data-tab="maps">Cartes</button>
+            <button role="tab" data-tab="todo">À faire</button>
+            <button role="tab" data-tab="prio">Priorités</button>
+            <button role="tab" data-tab="inv">Inventaire</button>
+            <button role="tab" data-tab="hints">Hints</button>
+          </div>
+        </div>
+
+        <div class="panel" data-panel="maps">
+          <div class="panel-tools">
+            <input type="search" id="map-filter" placeholder="Filtrer les cartes…" aria-label="Filtrer les cartes" />
+            <label class="toggle"><input type="checkbox" id="follow" /> Suivre le joueur</label>
+            <label class="toggle"><input type="checkbox" id="hide-done" /> Masquer les checks faits</label>
+          </div>
+          <nav class="map-list" id="map-list"></nav>
+        </div>
+        <div class="panel" data-panel="todo" id="todo-panel" hidden></div>
+        <div class="panel" data-panel="prio" id="prio-panel" hidden></div>
+        <div class="panel" data-panel="inv" id="inv-panel" hidden></div>
+        <div class="panel" data-panel="hints" id="hints-panel" hidden></div>
+        <div class="panel item-results" id="item-results" hidden></div>
+
+        <div class="sidebar-foot spoiler" id="spoiler-box">
+          <label class="btn secondary file-btn" title="Fichier téléchargé depuis la page de la room (Download Spoiler)">
+            Charger le spoiler<input type="file" id="spoiler-file" accept=".txt,.log" hidden />
+          </label>
+          <span class="spoiler-status" id="spoiler-status"></span>
+          <button class="icon-btn small-btn" id="spoiler-clear" aria-label="Oublier le spoiler" hidden>✕</button>
+        </div>
+      </aside>
+
+      <main class="viewer" id="viewer">
+        <div class="viewer-head">
+          <h1 class="map-title" id="map-title"></h1>
+          <div class="zoom">
+            <button class="icon-btn" id="zoom-out" aria-label="Dézoomer">−</button>
+            <button class="icon-btn" id="zoom-fit" aria-label="Ajuster">⤢</button>
+            <button class="icon-btn" id="zoom-in" aria-label="Zoomer">+</button>
+          </div>
+        </div>
+        <div class="stage" id="stage">
+          <div class="canvas" id="canvas">
+            <img id="map-img" alt="" draggable="false" />
+            <div class="pins" id="pins"></div>
+          </div>
+          <div class="popover" id="popover" hidden></div>
+          <div class="hint" id="hint">Connecte-toi à la room pour voir tes checks en direct.</div>
+        </div>
+        <footer class="legend">
+          <span><i class="dot s-all"></i>Accessible</span>
+          <span><i class="dot s-some"></i>Partiel</span>
+          <span><i class="dot s-none"></i>Bloqué</span>
+          <span><i class="dot s-done"></i>Fait</span>
+          <span><i class="dot s-hint"></i>Hinté</span>
+        </footer>
+      </main>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "lhp57-web-tracker",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Live web map tracker for Lego Harry Potter 5-7 Archipelago",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "pack": "node tools/build_pack.mjs",
+    "logic": "python -I tools/extract_logic.py"
+  },
+  "devDependencies": {
+    "adm-zip": "^0.5.16",
+    "sharp": "^0.33.5",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}
